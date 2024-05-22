@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VotersApi", "VotersApi\VotersApi.csproj", "{F2E3524B-6E4F-4DDC-824C-440663909299}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VotingBlazorApp", "VotingBlazorApp\VotingBlazorApp.csproj", "{491749EF-3F9A-45A2-9A62-A2BB1D9FA4A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoterApp.Domain", "VoterApp.Domain\VoterApp.Domain.csproj", "{A6F252FA-E05F-4862-80B8-C948ADAEB605}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoteBlazor", "VoteBlazor\VoteBlazor.csproj", "{CDAF03EE-19F1-4C25-9FC0-1A49B2F43662}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F2E3524B-6E4F-4DDC-824C-440663909299}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2E3524B-6E4F-4DDC-824C-440663909299}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2E3524B-6E4F-4DDC-824C-440663909299}.Release|Any CPU.Build.0 = Release|Any CPU
+		{491749EF-3F9A-45A2-9A62-A2BB1D9FA4A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{491749EF-3F9A-45A2-9A62-A2BB1D9FA4A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{491749EF-3F9A-45A2-9A62-A2BB1D9FA4A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6F252FA-E05F-4862-80B8-C948ADAEB605}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6F252FA-E05F-4862-80B8-C948ADAEB605}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6F252FA-E05F-4862-80B8-C948ADAEB605}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6F252FA-E05F-4862-80B8-C948ADAEB605}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDAF03EE-19F1-4C25-9FC0-1A49B2F43662}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDAF03EE-19F1-4C25-9FC0-1A49B2F43662}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDAF03EE-19F1-4C25-9FC0-1A49B2F43662}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDAF03EE-19F1-4C25-9FC0-1A49B2F43662}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {18CFF23B-0FAB-4B3F-83F1-3775637B0561}
+	EndGlobalSection
+EndGlobal

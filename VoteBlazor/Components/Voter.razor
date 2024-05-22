@@ -1,0 +1,30 @@
+﻿@page "/voter"
+@using VoteBlazor.Components.Pages.Components
+
+@inherits VoterBase
+@if (Voters == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{ 
+    <table class="table">
+        <thead>
+            <tr> Voters List </tr>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var voter in Voters)
+            {
+                <tr>
+                    <td>@voter.Id</td>
+                    <td>@voter.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
