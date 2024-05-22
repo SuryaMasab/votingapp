@@ -23,7 +23,7 @@ public class VoterController(VoteAppDbContext context) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Voter>> AddVoter(Voter voter)
+    public async Task<ActionResult<Voter>> AddVoter([FromBody] Voter voter)
     {
         _context.Voters.Add(voter);
         await _context.SaveChangesAsync();

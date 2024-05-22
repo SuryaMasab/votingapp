@@ -1,0 +1,36 @@
+﻿@inherits AddComponentBase
+
+<div class="card mt-3">
+    <div class="card-body">
+       @*  <h5 class="card-title">@EntityType</h5> *@
+        <p class="card-text">This is a newly added component. + @EntityType</p>
+        @if (EntityType == "Candidate")
+        {
+            <EditForm Model="NewItem" OnValidSubmit="async() => await HandleValidSubmit()">
+                    <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <InputText id="name" class="form-control" @bind-Value="NewItem.Name" />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+             </EditForm>
+        }
+        else
+        {
+            <EditForm Model="NewItem" OnValidSubmit="async() => await HandleValidSubmit()">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <InputText id="name" class="form-control" @bind-Value="NewItem.Name" />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </EditForm>
+        }
+    </div>
+</div>

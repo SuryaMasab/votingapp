@@ -28,7 +28,7 @@ public class CandidateController(ICandidateRepository candidateRepository) : Con
     }
 
     [HttpPost]
-    public async Task<ActionResult<Candidate>> AddCandidate(Candidate candidate)
+    public async Task<ActionResult<Candidate>> AddCandidate([FromBody]Candidate candidate)
     {
         if(candidate == null)
         {

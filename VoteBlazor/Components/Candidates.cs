@@ -4,32 +4,33 @@ using VoterApp.Domain.Models;
 namespace VoteBlazor.Components.Pages.Components;
 
 public class CandidateBase : ComponentBase
-{
-    //[Inject] protected NavigationManager? NavigationManager { get; set; }
-    //[Inject] protected IConfiguration? Configuration { get; set; }
-    [Inject] protected IVoterService? VoterService { get; set; }
-    public List<Candidate>? CandidateList { get; set; } = [];
-   
+{ 
+    [Inject] protected IVoterService VoterService { get; set; }    
+    [Parameter] public List<Candidate>? CandidateList { get; set; } = [];
     public bool IsBusy { get; set; }
    
+    public List<RenderFragment> addComponents = new List<RenderFragment>();
+
     public async Task BindCandidates()
-    {
+    { 
+
         CandidateList = await VoterService.GetCandidates();
-    }
+    }     
 
-    protected override async Task OnInitializedAsync()
+    public void AddNewComponent()
     {
-        CandidateList = await VoterService.GetCandidates();
-        //await base.OnInitializedAsync();
-    }
-
-
-        public void SetIsBusy(bool isBusy)
-    {
-        IsBusy = isBusy;
-        if (isBusy)
+        addComponents.Add(builder =>
         {
-            // show loader
-        }
+            builder.OpenComponent(0, typeof(AddComponent));
+            builder.AddComponentParameter(1, "EntityType", "Candidate");
+            builder.AddComponentParameter(2, "CandidatesComponent", this); // Pass the reference
+            builder.CloseComponent();
+        });
+    }     
+
+    public async Task RefreshCandidatesData()
+    {        
+        await BindCandidates();
+        StateHasChanged();
     }
 }

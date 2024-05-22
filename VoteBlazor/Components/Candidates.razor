@@ -1,30 +1,37 @@
-@using VoteBlazor.Components.Pages.Components
-@page "/candidate"
+@using VoteBlazor.Components.Pages.Components 
 @inherits CandidateBase
-
-@if (CandidateList == null && CandidateList?.Count > 0)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr> Candidates List </tr>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th> </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var candidate in CandidateList)
-            {
+ 
+<div>
+    @if (CandidateList != null && CandidateList.Count > 0)
+    {
+        <table class="table">
+            <thead>              
                 <tr>
-                    <td>@candidate.Id</td>
-                    <td>@candidate.Name</td>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th> </th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
+            </thead>
+            <tbody>
+                @foreach (var candidate in CandidateList)
+                {
+                    <tr>
+                        <td>@candidate.Id</td>
+                        <td>@candidate.Name</td>
+                        <td>@candidate.VotesCount</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No candidates available.</p>
+    }
+
+    <button class="btn btn-primary" @onclick="AddNewComponent">Add</button>
+    @foreach (var addComponent in addComponents)
+    {
+        @addComponent
+    }
+</div>

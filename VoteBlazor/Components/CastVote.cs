@@ -4,21 +4,21 @@ using VoterApp.Domain.Models;
 namespace VoteBlazor.Components.Pages.Components;
 
 public partial class CastVoteBase : ComponentBase
-{
-    [Inject] protected HttpClient? HttpClient { get; set; }
+{    
     [Inject] protected NavigationManager? NavigationManager { get; set; }
-    [Inject] protected IConfiguration? Configuration { get; set; }
-    public List<Candidate> Candidates { get; set; }
-    public List<Voter> Voters { get; set; }
-    private string? baseUrl = string.Empty;
-    private HttpClient? _httpClient;
+    [Inject] protected IVoterService? VoterService { get; set; }
+    
+    public Candidates CandidatesRef { get; set;}
+    public Voter VotersRef { get; set;}
+
+    public List<VoterApp.Domain.Models.Candidate> CandidateList { get; set; }
+    public List<VoterApp.Domain.Models.Voter> VoterList { get; set; } 
+
 
     public CastVoteBase()
     {
-        Candidates = [];
-        Voters = [];
-        baseUrl = Configuration?.GetSection("ApiUrl").GetValue<string>("Url") ?? string.Empty;
-        _httpClient =  new HttpClient();
+        CandidateList = new List<Candidate>();
+        VoterList = new List<VoterApp.Domain.Models.Voter>();
     }
     protected override async Task OnInitializedAsync()
     {
@@ -26,32 +26,39 @@ public partial class CastVoteBase : ComponentBase
         await Task.Delay(500);
 
         var startDate = DateOnly.FromDateTime(DateTime.Now);
-        //await GetCandidates();
+        await BindCandidates();
 
-        //await GetVoters();
+        await BindVoters();
     }
 
-    //private async Task GetCandidates()
-    //{
-    //    var dataRequest = await _httpClient.GetAsync($"{baseUrl}api/Candidate");
+    public async Task BindCandidates()
+    {
+        var result= await VoterService.GetCandidates();
+        if(result != null)
+        {
+            CandidateList = result;
+            StateHasChanged();
+        }
+        else
+        {
+            CandidateList = new();
+        }
 
-    //    if (dataRequest.IsSuccessStatusCode)
-    //    {
-    //        var jsonString = JsonDocument.Parse(await dataRequest.Content.ReadAsStreamAsync());
-    //        var candidateResult = jsonString.Deserialize<List<Candidate>>();
-    //        if (candidateResult != null)
-    //        {
-    //            CandidateList = candidateResult;
-    //        }
-    //        else
-    //        {
-    //            throw new Exception("Error loading data.");
-    //        }
-    //    }
-    //    else
-    //    {
-    //        throw new Exception("Error sending request.");
-    //    }
-    //} 
+    }
+
+    public async Task BindVoters()
+    {
+        var result = await VoterService.GetVoters();
+        if (result != null)
+        {
+            VoterList = result;
+            StateHasChanged();
+        }
+        else
+        {
+            VoterList = new();
+        }
+        
+    }
 
 }

@@ -1,16 +1,14 @@
-﻿@page "/voter"
-@using VoteBlazor.Components.Pages.Components
-
-@inherits VoterBase
-@if (Voters == null)
+﻿@inherits VoterBase
+@if (VoterList == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 { 
+    @if (VoterList != null && VoterList.Any())
+    {
     <table class="table">
-        <thead>
-            <tr> Voters List </tr>
+        <thead>           
             <tr>
                 <th>Id</th>
                 <th>Name</th>
@@ -18,13 +16,20 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var voter in Voters)
+            @foreach (var voter in VoterList)
             {
                 <tr>
                     <td>@voter.Id</td>
                     <td>@voter.Name</td>
+                     <td>@(voter.HasVoted ? "V" : "X")</td>
                 </tr>
             }
         </tbody>
     </table>
+    }
+}
+<button class="btn btn-primary" @onclick="AddNewComponent">Add</button>
+@foreach (var addComponent in addComponents)
+{
+    @addComponent
 }

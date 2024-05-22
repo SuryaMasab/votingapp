@@ -31,7 +31,6 @@ public class VoteController(IVoterRepository voterRepository,
         {
             VoterId = voterId,
             CandidateId = candidateId, 
-
         };
 
         voter.HasVoted = true;

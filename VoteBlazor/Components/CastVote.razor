@@ -1,17 +1,77 @@
 ﻿@page "/castvote" 
-@attribute [StreamRendering]
+@inherits CastVoteBase
 
-<PageTitle>Cast your vote</PageTitle>
-
-<h1>Vote for the Candidate</h1>
-
-<p>Candidate Profile</p>
-@* 
-@if (Voters == null || Candidates == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-}
+<PageTitle>Cast your vote</PageTitle>@* 
+<div class="container mt-12">   
+    <div class="table-responsive col-lg-12">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr class="col-12">
+                    <td>
+                        Candidates List
+                    </td>
+                    <td>
+                        Voters List
+                    </td> 
+                </tr>              
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="6">
+                        <Candidates @ref="comp1" CandidateList="@CandidateList"></Candidates>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <Voter @ref="comp2" VoterList="@VoterList"></Voter>
+                    </td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+</div>
   *@
+ 
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-6">
+            <h3>Candidates List</h3>
+            <Candidates @ref="CandidatesRef" CandidateList="@CandidateList"></Candidates>
+        </div>
+        <div class="col-lg-6">
+            <h3>Voters List</h3>
+            <Voter @ref="VotersRef" VoterList="@VoterList"></Voter>
+        </div>
+    </div>@* 
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Candidate Information</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="6">
+                    <Candidates @ref="comp1" CandidateList="@CandidateList"></Candidates>
+                </td>
+            </tr>
+        </tbody> 
+    </table>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Voter Information</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="6">
+                    <Voter @ref="comp2" VoterList="@VoterList"></Voter>
+                </td>
+            </tr>
+        </tbody>
+    </table>*@
+</div>
