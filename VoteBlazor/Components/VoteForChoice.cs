@@ -6,18 +6,44 @@ namespace VoteBlazor.Components.Pages.Components;
 
 public class VoteForChoiceBase: ComponentBase
 {
+    #region [Inject]
     [Inject] protected IVoterService VoterService { get; set; }
 
-    public VoterApp.Domain.Models.Vote ChoiceOfVoter = new Vote();
-    public List<VoterApp.Domain.Models.Voter> Voters = new();
-    public List<VoterApp.Domain.Models.Candidate> Candidates = new();
+    #endregion
+
+
+    #region [Parameters]
+
+    public List<VoterApp.Domain.Models.Voter> Voters { get; set; }
+    public List<VoterApp.Domain.Models.Candidate> Candidates { get; set; }
     [Parameter] public EventCallback<bool> RefrehVoteCount {  get; set; }
+
+    //[Parameter] public EventCallback<bool> ReBindLists { get; set; }
+
+    #endregion
+
+
+    #region Properties
+
+    public VoterApp.Domain.Models.Vote ChoiceOfVoter = new Vote();
+
+    #endregion
+
+
+    #region Events
+
     protected async override Task OnInitializedAsync() => await LoadVotersAndCandidates();
- 
+
+
+    #endregion
+
+    #region Methods
     private async Task LoadVotersAndCandidates()
-    { 
-        Voters = await VoterService.GetVoters() ?? new();
+    {          
         Candidates = await VoterService.GetCandidates() ?? new();
+
+        Voters = await VoterService.GetVoters() ?? new();
+        
     }
 
     public async Task HandleValidSubmit()
@@ -47,4 +73,10 @@ public class VoteForChoiceBase: ComponentBase
         }
         
     }
+    public async Task HandleNewItemsAdded()
+    {
+        await LoadVotersAndCandidates();
+    }
+
+    #endregion
 }

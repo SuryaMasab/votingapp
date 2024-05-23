@@ -12,9 +12,8 @@ public partial class CastVoteBase : ComponentBase
     public Voter VotersRef { get; set;}    
     public VoteForChoice voteForChoiceRef { get; set; }
 
-    public List<VoterApp.Domain.Models.Candidate> CandidateList { get; set; }
-    public List<VoterApp.Domain.Models.Voter> VoterList { get; set; }   
-
+    [Parameter] public List<VoterApp.Domain.Models.Candidate> CandidateList { get; set; }
+    [Parameter] public List<VoterApp.Domain.Models.Voter> VoterList { get; set; }
     public CastVoteBase()
     {
         NavigationManager? navigationManager = NavigationManager;
@@ -22,8 +21,9 @@ public partial class CastVoteBase : ComponentBase
         {
             NavigationManager.NavigateTo("/castvote");
         }
-        CandidateList = new List<Candidate>();
-        VoterList = new List<VoterApp.Domain.Models.Voter>();
+
+        //CandidateList = new List<Candidate>();
+        //VoterList = new List<VoterApp.Domain.Models.Voter>();
     }
     protected override async Task OnInitializedAsync()
     {       
@@ -66,8 +66,13 @@ public partial class CastVoteBase : ComponentBase
     public async Task RefreshCandidateVotes()
     {
         await BindCandidates();
-
-        await BindVoters();
+        await BindVoters();  
     }
 
+    public async Task RefreshVoteForChoiceDropDowns()
+    {
+        await voteForChoiceRef.HandleNewItemsAdded();
+        StateHasChanged();
+    }
+ 
 }

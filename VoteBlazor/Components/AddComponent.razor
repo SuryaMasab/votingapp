@@ -8,13 +8,17 @@
                 <EditForm Model="NewItem" OnValidSubmit="async() => await HandleValidSubmit()">
                         <DataAnnotationsValidator />
                         <ValidationSummary />
+                        @if (!string.IsNullOrEmpty(ErrorMessage))
+                        {
+                                <label class="alert-danger">@ErrorMessage</label>
+                        }
                         <div class="form-group">
                             <label for="name">Please enter name of the @EntityType</label>
                             <InputText id="name" class="form-control" @bind-Value="NewItem.Name" />
                         </div>
-                        <div class="form-group d-flex justify-content-end mt-3">                          
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        <button type="button" class="btn btn-secondary me-2" @onclick="ClearTextbox">Cancel</button>                        
+                        <div class="form-group d-flex justify-content-end mt-3">
+                            <button type="submit" class="btn btn-primary">Save</button> &nbsp;&nbsp;
+                            <button type="button" class="btn btn-secondary me-2" @onclick="ClearTextbox">Cancel</button>                        
                         </div>
                 </EditForm>
         </div>

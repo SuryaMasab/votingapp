@@ -7,6 +7,7 @@ public class VoterBase : ComponentBase
     [Inject] protected IVoterService? VoterService { get; set; }
     [Parameter] public List<VoterApp.Domain.Models.Voter>? VoterList { get; set; }
     [Parameter] public bool ShowAddNewItem { get; set; }
+    [Parameter] public EventCallback OnItemAdded { get; set; }
     public VoterBase()
     {
         VoterList = [];       
@@ -29,6 +30,7 @@ public class VoterBase : ComponentBase
                 builder.AddComponentParameter(1, "EntityType", "Voter");
                 builder.AddComponentParameter(2, "VotersComponent", this); // Pass the reference
                 builder.AddComponentParameter(3, "ShowAddNewItem", ShowAddNewItem);
+                builder.AddComponentParameter(4, "OnVoterAdded", EventCallback.Factory.Create(this, HandleVoterAdded));
                 builder.CloseComponent();
             });
             ShowAddNewItem = true;
@@ -40,6 +42,16 @@ public class VoterBase : ComponentBase
         StateHasChanged();
         addComponents.Clear();
         ShowAddNewItem = false;
+    }
+
+    private async Task HandleVoterAdded()
+    {       
+        if (OnItemAdded.HasDelegate)
+        {
+            await OnItemAdded.InvokeAsync(this);
+        }
+        await BindVoters();
+        StateHasChanged();
     }
 
 }
