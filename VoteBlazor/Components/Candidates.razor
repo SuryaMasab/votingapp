@@ -1,0 +1,50 @@
+@using VoteBlazor.Components.Pages.Components 
+@inherits CandidateBase
+ 
+<div>
+    <div>
+        @foreach (var addComponent in addComponents)
+        {
+            @addComponent
+        }
+    </div>
+    @if (CandidateList != null && CandidateList.Count > 0)
+    {
+        <div class="overflow-scroll">
+            <div class="overflow-scroll-content">
+                <div class="container border border-1 border-dark p-1">
+                    <div class="row border-bottom border-1 border-dark pb-1">
+                        <div class="col">
+                            <h6>Name</h6>
+                        </div>
+                        <div class="col">
+                            <h6>Votes#</h6>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary" @onclick="AddNewComponent">Add Candidate</button>
+                        </div>
+                    </div>
+                    @foreach (var candidate in CandidateList)
+                    {
+                        <div class="row border-bottom border-1 border-dark pt-1 pb-1">
+                            <div class="col">
+                                <span>@candidate.Name</span>
+                            </div>
+                            <div class="col">
+                                <span>@candidate.VotesCount</span>
+                            </div>
+                            <div class="col">
+                                &nbsp;
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <p>No candidates available.</p>
+        <button class="btn btn-primary" @onclick="AddNewComponent">Add Candidate</button>
+    }
+</div>

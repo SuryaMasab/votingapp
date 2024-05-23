@@ -1,0 +1,54 @@
+﻿@inherits VoterBase
+@if (VoterList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div>
+        @foreach (var addComponent in addComponents)
+        {
+            @addComponent
+        }
+    </div>
+    @if (VoterList != null && VoterList.Any())
+    {
+        <div class="overflow-scroll">
+            <div class="overflow-scroll-content">
+                <div class="container border border-1 border-dark p-1">
+                    <div class="row border-bottom border-1 border-dark pb-1">
+                        <div class="col">
+                            <h6>Name</h6>
+                        </div>
+                        <div class="col">
+                            <h6>Has Voted</h6>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary" @onclick="AddNewComponent">Add Voter</button>
+                        </div>
+                    </div>
+                    @foreach (var voter in VoterList)
+                    {
+                        <div class="row border-bottom border-1 border-dark pt-1 pb-1">
+                            <div class="col">
+                                <span>@voter.Name</span>
+                            </div>
+                            <div class="col">
+                                <span>@(voter.HasVoted ? "V" : "X")</span>
+                            </div>
+                            <div class="col">
+                                &nbsp;
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+    }
+    else
+    {
+        <p>No voters available.</p>
+        <button class="btn btn-primary" @onclick="AddNewComponent">Add Voter</button>
+    }
+}
