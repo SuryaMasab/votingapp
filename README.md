@@ -76,3 +76,9 @@ The `VoterService` is used to manage communication between the Blazor components
 
    ```bash
    dotnet ef database update
+Adding screenshots here.. ![image](https://github.com/SuryaMasab/votingapp/assets/114293640/05fd5df1-4550-4dab-8b4c-c91c3f866005)
+![image](https://github.com/SuryaMasab/votingapp/assets/114293640/1f447972-ed1d-49d4-9ad9-5172952fa083)
+![image](https://github.com/SuryaMasab/votingapp/assets/114293640/57c63733-c8da-42eb-a888-834eb545d15e) 
+![image](https://github.com/SuryaMasab/votingapp/assets/114293640/1c5c04d9-a968-4662-96ff-de78a70439ce)
+
+
