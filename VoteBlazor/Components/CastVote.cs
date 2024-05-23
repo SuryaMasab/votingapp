@@ -17,11 +17,17 @@ public partial class CastVoteBase : ComponentBase
 
     public CastVoteBase()
     {
+        NavigationManager? navigationManager = NavigationManager;
+        if (navigationManager!= null && navigationManager.Uri.Contains("/"))
+        {
+            NavigationManager.NavigateTo("/castvote");
+        }
         CandidateList = new List<Candidate>();
         VoterList = new List<VoterApp.Domain.Models.Voter>();
     }
     protected override async Task OnInitializedAsync()
     {       
+
         await BindCandidates();
 
         await BindVoters();

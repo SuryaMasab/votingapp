@@ -17,6 +17,7 @@ builder.Services.AddScoped(sp => new HttpClient
 {
     BaseAddress = new Uri(baseUrl) // Set your base address here
 });
+ 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
