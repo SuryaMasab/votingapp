@@ -2,5 +2,5 @@
 
 public interface ICastVoteRepository
 {
-    public void CastVote(Vote vote);
+    public bool CastVote(Vote vote);
 }

@@ -11,6 +11,7 @@ public class AddComponentBase:ComponentBase
     [Parameter] public string? EntityType { get; set; }
     [Inject] protected IVoterService? VoterService { get; set; }
     public EntityItem NewItem { get; set; } = new(); 
+    [Parameter]public bool ShowAddNewItem { get; set; }
     [Parameter] public VoteBlazor.Components.Candidates? CandidatesComponent { get; set; }
 
     [Parameter] public VoteBlazor.Components.Voter? VotersComponent { get; set; }
@@ -27,7 +28,9 @@ public class AddComponentBase:ComponentBase
             {
                 await CandidatesComponent.RefreshCandidatesData(); 
                 base.StateHasChanged();
+                ShowAddNewItem = false;
             }
+           
 
         }
         else if (EntityType == "Voter")
@@ -41,11 +44,14 @@ public class AddComponentBase:ComponentBase
             {
                 await VotersComponent.RefreshVotersData();
                 base.StateHasChanged();
-
+                ShowAddNewItem = false;
             }
         }  
+    }
+    public void ClearTextbox()
+    {
+        NewItem.Name = string.Empty;
     } 
-
 }
 public class EntityItem
 {

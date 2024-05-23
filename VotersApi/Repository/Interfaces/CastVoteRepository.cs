@@ -7,9 +7,10 @@ public class CastVoteRepository : ICastVoteRepository
     {
         _dbContext = context;
     } 
-    public void CastVote(Vote vote)
+    public bool CastVote(Vote vote)
     {
         _dbContext.Votes.Add(vote);
         _dbContext.SaveChanges();
+        return true;
     }
 }

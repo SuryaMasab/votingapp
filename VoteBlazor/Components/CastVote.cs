@@ -9,11 +9,11 @@ public partial class CastVoteBase : ComponentBase
     [Inject] protected IVoterService? VoterService { get; set; }
     
     public Candidates CandidatesRef { get; set;}
-    public Voter VotersRef { get; set;}
+    public Voter VotersRef { get; set;}    
+    public VoteForChoice voteForChoiceRef { get; set; }
 
     public List<VoterApp.Domain.Models.Candidate> CandidateList { get; set; }
-    public List<VoterApp.Domain.Models.Voter> VoterList { get; set; } 
-
+    public List<VoterApp.Domain.Models.Voter> VoterList { get; set; }   
 
     public CastVoteBase()
     {
@@ -21,11 +21,7 @@ public partial class CastVoteBase : ComponentBase
         VoterList = new List<VoterApp.Domain.Models.Voter>();
     }
     protected override async Task OnInitializedAsync()
-    {
-        // Simulate asynchronous loading to demonstrate streaming rendering
-        await Task.Delay(500);
-
-        var startDate = DateOnly.FromDateTime(DateTime.Now);
+    {       
         await BindCandidates();
 
         await BindVoters();
@@ -59,6 +55,13 @@ public partial class CastVoteBase : ComponentBase
             VoterList = new();
         }
         
+    }
+
+    public async Task RefreshCandidateVotes()
+    {
+        await BindCandidates();
+
+        await BindVoters();
     }
 
 }

@@ -2,14 +2,22 @@
 @inherits CandidateBase
  
 <div>
+    <div>
+        @foreach (var addComponent in addComponents)
+        {
+            @addComponent
+        }
+    </div>
     @if (CandidateList != null && CandidateList.Count > 0)
     {
+        <div class="overflow-scroll">
         <table class="table">
             <thead>              
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
-                    <th> </th>
+                    <th>Votes#</th>
+                    <th><button class="btn btn-primary" @onclick="AddNewComponent">Add Candidate</button></th>
                 </tr>
             </thead>
             <tbody>
@@ -23,15 +31,11 @@
                 }
             </tbody>
         </table>
+        </div>
     }
     else
     {
         <p>No candidates available.</p>
-    }
-
-    <button class="btn btn-primary" @onclick="AddNewComponent">Add</button>
-    @foreach (var addComponent in addComponents)
-    {
-        @addComponent
+        <button class="btn btn-primary" @onclick="AddNewComponent">Add Candidate</button>
     }
 </div>

@@ -1,0 +1,30 @@
+﻿@inherits VoteForChoiceBase;
+
+<EditForm Model="ChoiceOfVoter" OnValidSubmit="async() => await HandleValidSubmit()">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group row">
+        <div class="col">
+        <InputSelect id="voter" class="form-control" @bind-Value="ChoiceOfVoter.VoterId" DisplayName="I am">
+            <option value="">I am</option>
+            @foreach (var voter in Voters)
+            {
+                <option value="@voter.Id">@voter.Name</option>
+            }
+        </InputSelect>
+        </div>
+        <div class="col">
+        <InputSelect id="candidate" class="form-control" @bind-Value="ChoiceOfVoter.CandidateId" DisplayName="I Vote For">
+            <option value="">I Vote For</option>
+            @foreach (var candidate in Candidates)
+            {
+                <option value="@candidate.Id">@candidate.Name</option>
+            }
+        </InputSelect>
+        </div>
+        <div class="col d-flex justify-content-left align-items-center">
+            <button type="submit" class="btn btn-primary me-2">Submit</button>
+            <button type="button" class="btn btn-secondary" @onclick="ClearForm">Cancel</button>
+        </div>
+    </div>  
+</EditForm>

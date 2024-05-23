@@ -4,32 +4,40 @@
     <p><em>Loading...</em></p>
 }
 else
-{ 
-    @if (VoterList != null && VoterList.Any())
-    {
-    <table class="table">
-        <thead>           
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th> </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var voter in VoterList)
-            {
-                <tr>
-                    <td>@voter.Id</td>
-                    <td>@voter.Name</td>
-                     <td>@(voter.HasVoted ? "V" : "X")</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    }
-}
-<button class="btn btn-primary" @onclick="AddNewComponent">Add</button>
-@foreach (var addComponent in addComponents)
 {
-    @addComponent
+    <div>
+        @foreach (var addComponent in addComponents)
+        {
+            @addComponent
+        }
+    </div>
+    @if (VoterList != null && VoterList.Any())
+    {       
+
+        <div class="overflow-scroll">
+            <table class="table">
+                <thead>           
+                    <tr>                       
+                        <th>Name</th>
+                        <th>Has Voted</th>
+                        <th><button class="btn btn-primary" @onclick="AddNewComponent">Add Voter</button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var voter in VoterList)
+                    {
+                        <tr>                          
+                            <td>@voter.Name</td>
+                            <td>@(voter.HasVoted ? "V" : "X")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p>No voters available.</p>
+        <button class="btn btn-primary" @onclick="AddNewComponent">Add Voter</button>
+    }
 }

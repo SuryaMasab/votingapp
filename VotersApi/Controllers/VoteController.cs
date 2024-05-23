@@ -13,31 +13,29 @@ public class VoteController(IVoterRepository voterRepository,
 
 
     [HttpPost]
-    public async Task<IActionResult> CastVote(int voterId, int candidateId)
+    public async Task<ActionResult<bool>> CastVote([FromBody] Vote newVote)
     {
-        var voter = await _voterRepository.GetVoter(voterId);
+        if(newVote == null)
+        {
+            return BadRequest();
+        }
+        var voter = await _voterRepository.GetVoter(newVote.VoterId);
         if (voter == null || voter.HasVoted)
         {
             return BadRequest("Invalid voter or voter has already voted.");
         }
 
-        var candidate = await _candidateRepository.GetCandidate(candidateId);
+        var candidate = await _candidateRepository.GetCandidate(newVote.CandidateId);
         if (candidate == null)
         {
             return BadRequest("Invalid candidate.");
-        }
-
-        var vote = new Vote
-        {
-            VoterId = voterId,
-            CandidateId = candidateId, 
-        };
+        } 
 
         voter.HasVoted = true;
         candidate.VotesCount += 1;
 
-        _castVoteRepository.CastVote(vote); 
+        var result = _castVoteRepository.CastVote(newVote); 
 
-        return Ok();
+        return Ok(result);
     }
 }
