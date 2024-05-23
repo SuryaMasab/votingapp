@@ -1,9 +1,12 @@
 ﻿namespace VotersApi.Controllers;
 
 [Route("api/[controller]")]
-public class CandidateController(ICandidateRepository candidateRepository) : ControllerBase
+public class CandidateController(ICandidateRepository candidateRepository, ILogger<CandidateController> logger) : ControllerBase
 {
     private readonly ICandidateRepository _candidateRepository = candidateRepository;
+   
+    private readonly ILogger<CandidateController> _logger = logger;
+ 
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Voter>>> GetCandidates()
@@ -40,7 +43,7 @@ public class CandidateController(ICandidateRepository candidateRepository) : Con
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult<Candidate?>> UpdateCandidate(int id, Candidate candidate)
+    public async Task<ActionResult<Candidate>> UpdateCandidate(int id, Candidate candidate)
     {
         try
         {
@@ -63,8 +66,9 @@ public class CandidateController(ICandidateRepository candidateRepository) : Con
         }
         catch (Exception ex)
         {
-            throw ex;
+            _logger.LogError($"From Candidate Controller {ex.Message} {ex.StackTrace}");
         }
+        return BadRequest();
     } 
 
     [HttpDelete("{id}")]

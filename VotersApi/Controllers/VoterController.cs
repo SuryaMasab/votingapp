@@ -1,10 +1,13 @@
-﻿namespace VotersApi.Controllers;
+﻿using VoterApp.Domain.Models;
+
+namespace VotersApi.Controllers;
 
 [Route("api/[controller]")]
-public class VoterController(VoteAppDbContext context) : ControllerBase
+public class VoterController(VoteAppDbContext context, ILogger<VoteController> logger) : ControllerBase
 {
     private readonly VoteAppDbContext _context = context;
-
+    private readonly ILogger<VoteController> _logger = logger;
+     
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Voter>>> GetVoters()
     {
@@ -17,24 +20,33 @@ public class VoterController(VoteAppDbContext context) : ControllerBase
         var voter = await _context.Voters.FindAsync(id);
         if (voter == null)
         {
+            _logger.LogInformation("Get Voter By Id failed {id}", id);
             return NotFound();
         }
         return voter;
     }
 
     [HttpPost]
-    public async Task<ActionResult<Voter>> AddVoter([FromBody] Voter voter)
+    public async Task<ActionResult<Voter>> AddVoter([FromBody] Voter? voter)
     {
+        if (voter == null)
+        {
+            _logger.LogInformation("Invalid Add Voter Object");
+            return NotFound();
+        }
         _context.Voters.Add(voter);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync();       
         return CreatedAtAction(nameof(GetVoter), new { id = voter.Id }, voter);
     }
 
+
+    [Obsolete]
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateVoter(int id, Voter voter)
     {
         if (id != voter.Id)
         {
+            _logger.LogInformation("Update/Put Voter could not be found");
             return BadRequest();
         }
         _context.Entry(voter).State = EntityState.Modified;
@@ -42,20 +54,14 @@ public class VoterController(VoteAppDbContext context) : ControllerBase
         {
             await _context.SaveChangesAsync();
         }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!_context.Voters.Any(e => e.Id == id))
-            {
-                return NotFound();
-            }
-            else
-            {
-                throw;
-            }
+        catch (Exception ex)
+        {             
+            _logger.LogInformation($"Exception Occured Vide update {ex.Message} {ex.StackTrace}");
         }
         return NoContent();
     }
 
+    [Obsolete]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteVoter(int id)
     {

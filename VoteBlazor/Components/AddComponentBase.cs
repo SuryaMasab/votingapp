@@ -40,8 +40,8 @@ public class AddComponentBase:ComponentBase
             {
                 Name = NewItem.Name
             };
-            newCandidate = await VoterService.AddCandidate(newCandidate);
-            if (newCandidate.Id > 0 && CandidatesComponent!=null)
+            newCandidate = await VoterService!.AddCandidate(newCandidate, VoterService!.GetJsonOptions());
+            if (newCandidate!.Id > 0 && CandidatesComponent!=null)
             {             
                 await CandidatesComponent.RefreshCandidatesData();
                 if(OnCandidateAdded.HasDelegate)
@@ -60,7 +60,7 @@ public class AddComponentBase:ComponentBase
             {
                 Name = NewItem.Name
             };
-            newVoter= await VoterService.AddVoter(newVoter);
+            newVoter= await VoterService!.AddVoter(newVoter);
             if (newVoter != null && newVoter.Id > 0 && VotersComponent!=null)
             {
                 await VotersComponent.RefreshVotersData();
@@ -90,5 +90,5 @@ public class AddComponentBase:ComponentBase
 }
 public class EntityItem
 {
-    public string Name { get; set; }
+    public string? Name { get; set; }
 }

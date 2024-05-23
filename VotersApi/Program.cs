@@ -1,8 +1,3 @@
-using VotersApi.Database;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using VotersApi.Repository.Interfaces;
-using VotersApi.Repository;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -13,6 +8,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
 //Add Repositories
 builder.Services.AddScoped<IVoterRepository, VoterRepository>();

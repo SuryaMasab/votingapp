@@ -1,47 +1,44 @@
 ﻿namespace VotersApi.Repository;
 
-public class CandidateRepository : ICandidateRepository
+public class CandidateRepository(VoteAppDbContext context) : ICandidateRepository
 {
-    private VoteAppDbContext _dbContext { get; }
-    public CandidateRepository(VoteAppDbContext context)
-    {
-        _dbContext = context;
-    }
+    private VoteAppDbContext DbContext { get; } = context;
+
     public async Task<Candidate?> AddCandidate(Candidate candidate)
     {
-        await _dbContext.Candidates.AddAsync(candidate);
-        await _dbContext.SaveChangesAsync();
+        await DbContext.Candidates.AddAsync(candidate);
+        await DbContext.SaveChangesAsync();
         return candidate;
     }
 
     public async Task<bool> DeleteCandidate(int candidateId)
     {
-        var c = await _dbContext.Candidates.FindAsync(candidateId);
+        var c = await DbContext.Candidates.FindAsync(candidateId);
         if (c == null)
         {
             return false;
         }
-        _dbContext.Candidates.Remove(c);
-        await _dbContext.SaveChangesAsync();
+        DbContext.Candidates.Remove(c);
+        await DbContext.SaveChangesAsync();
 
         return true;
     }
 
     public async Task<Candidate?> GetCandidate(int candidateId)
     {
-        return await _dbContext.Candidates.FindAsync(candidateId);
+        return await DbContext.Candidates.FindAsync(candidateId);
     }
 
     public async Task<IEnumerable<Candidate>> GetCandidates()
     {
-        return await _dbContext.Candidates.ToListAsync();
+        return await DbContext.Candidates.ToListAsync();
     }
 
     public async Task<Candidate?> UpdateCandidate(Candidate candidate)
     {
          
-            _dbContext.Candidates.Update(candidate);
-            await _dbContext.SaveChangesAsync();
+            DbContext.Candidates.Update(candidate);
+            await DbContext.SaveChangesAsync();
             return candidate;
         
         

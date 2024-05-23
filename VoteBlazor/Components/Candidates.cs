@@ -20,14 +20,14 @@ public class CandidateBase : ComponentBase
 
     #region ElementRefs
 
-    public List<RenderFragment> addComponents = new List<RenderFragment>();
+    public List<RenderFragment> addComponents = new();
 
     #endregion
 
     #region Methods
     public async Task BindCandidates()
     { 
-        CandidateList = await VoterService.GetCandidates();
+        CandidateList = await VoterService!.GetCandidates();
     }     
 
     public void AddNewComponent()

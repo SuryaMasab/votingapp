@@ -14,11 +14,11 @@ public class VoterBase : ComponentBase
     }
     public async Task BindVoters()
     {
-        VoterList = await VoterService.GetVoters() ?? new();
+        VoterList = await VoterService!.GetVoters() ?? new();
     }
      
 
-    public List<RenderFragment> addComponents = new List<RenderFragment>();
+    public List<RenderFragment> addComponents = [];
 
     public void AddNewComponent()
     {
