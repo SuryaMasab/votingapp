@@ -9,7 +9,7 @@ public class CandidateController(ICandidateRepository candidateRepository, ILogg
  
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Voter>>> GetCandidates()
+    public async Task<ActionResult<IEnumerable<Candidate>>> GetCandidates()
     {
         var result= await _candidateRepository.GetCandidates();
         if (result == null)
@@ -27,7 +27,7 @@ public class CandidateController(ICandidateRepository candidateRepository, ILogg
         {
             return NotFound();
         }
-        return candidate;
+        return Ok(candidate);
     }
 
     [HttpPost]
