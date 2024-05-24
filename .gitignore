@@ -7,3 +7,5 @@
 /VotersApi/obj
 /.vs/VotersApi
 /.vs/ProjectEvaluation
+/VotersApi.TestProj/bin
+/VotersApi.TestProj/obj
